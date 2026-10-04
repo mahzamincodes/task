@@ -60,7 +60,7 @@ const SgnInPage = () => {
                 </TextField>
 
                 <TextField
-                    className="w-full max-w-[280px]"
+                    className="w-full `max-w-70`]"
                     name="password"
                     validate={(value) => {
                         if (value.length < 8) {
@@ -81,7 +81,7 @@ const SgnInPage = () => {
                     <Label>Password</Label>
                     <InputGroup>
                         <InputGroup.Input
-                            className="w-full max-w-[280px]"
+                            className="w-full `max-w-70]"
                             type={isVisible ? "text" : "password"}
                         />
                         <InputGroup.Suffix className="pe-0">

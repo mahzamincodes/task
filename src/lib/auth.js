@@ -1,20 +1,25 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { Resend } from 'resend';
+import { Resend } from "resend";
 
 const client = new MongoClient(process.env.BETTER_AUTH_DB_URL);
-const db = client.db('better-auth-db');
+await client.connect();
+const db = client.db("better-auth-db");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: true,
+        requireEmailVerification: false,
 
         sendResetPassword: async ({ user, url, token }, request) => {
+            console.log("RESET URL:", url);
+            console.log("RESET TOKEN:", token);
+
+
             void resend.emails.send({
-                from: 'Acme <onboarding@resend.dev>',
+                from: "Test <onboarding@resend.dev>",
                 to: user.email,
                 subject: "Reset your password",
                 text: `
@@ -24,17 +29,14 @@ export const auth = betterAuth({
                 `,
             });
         },
-
-        
     },
 
     emailVerification: {
         sendVerificationEmail: async ({ user, url }) => {
             void resend.emails.send({
-                // from: 'Acme <onboarding@example.com>', //eta kaj korebe na...nicher email kaj hbe
-                from: 'Acme <onboarding@resend.dev>',
+                from: "Acme <onboarding@resend.dev>",
                 to: user.email,
-                subject: 'Verify your email address',
+                subject: "Verify your email address",
                 html: `
                 <h1>Please varify your email</h1>
                 Click <a href="${url}">here</a> to verify your email.
@@ -44,8 +46,7 @@ export const auth = betterAuth({
 
         sendOnSignUp: true,
         autoSignInAfterVerification: true,
-        expiresIn: 7 * 24 * 3600 // 7 days
-
+        expiresIn: 7 * 24 * 3600, // 7 days
     },
 
     socialProviders: {

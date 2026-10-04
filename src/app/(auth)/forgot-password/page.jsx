@@ -10,23 +10,22 @@ import {
     Input,
     Label,
     TextField,
-    toast,
 } from "@heroui/react";
 
 export default function forgotPasswordPAge() {
-    const handleForgotPassword = async(e) => {
+    const handleForgotPassword = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const userData = Object.fromEntries(formData.entries());
 
-        console.log("Userdata before submit",userData);
-        
+        console.log("user data before submit", userData);
+
         const resData = await requestPasswordReset({
             email: userData.email,
-            redirecTo: "http://localhost:3000/reset-password"
-        })
-        toast.success("An email is send. Please cheak")
-        console.log("Userdata after submit", resData);
+            redirectTo: "http://localhost:3000/reset-password",
+        });
+
+        console.log("after sending reset email", resData);
     };
 
     return (

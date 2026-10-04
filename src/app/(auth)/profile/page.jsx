@@ -66,7 +66,7 @@ export default function Basic() {
                     </TextField>
 
                     {/* password */}
-                    <TextField name="currentPassword" type="password">
+                    {/* <TextField name="currentPassword" type="password">
                         <Label>Current Password</Label>
                         <Input />
                     </TextField>
@@ -74,7 +74,7 @@ export default function Basic() {
                     <TextField name="newPassword" type="password">
                         <Label>New Password</Label>
                         <Input />
-                    </TextField>
+                    </TextField> */}
                 </FieldGroup>
 
                 <Fieldset.Actions>
